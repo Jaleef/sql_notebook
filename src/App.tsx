@@ -1,8 +1,8 @@
-
+import CodeBox from "./components/CodeBox";
 function App() {
   return (
-    <div className="bg-slate-300">
-      Hello World
+    <div className="container mx-auto px-52 py-5 bg-white">
+      <CodeBox />
     </div>
   );
 }
