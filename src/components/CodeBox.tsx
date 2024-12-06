@@ -1,9 +1,9 @@
 import { useState } from "react";
 import RunIcon from "../assets/RunIcon";
-import AddCode from "../assets/AddCode";
 import AddMarkdown from "../assets/AddMarkdown";
+import { BoxType, buttonType } from "../types";
 
-function CodeBox() {
+function CodeBox({ boxId, onUpdateBox }: BoxType) {
 	const activeColor: string = "border-blue-500";
 	const inactiveColor: string = "border-gray-200";
 	const codeBgColor: string = "bg-gray-100";
@@ -11,6 +11,9 @@ function CodeBox() {
 
 	const [hover, setHover] = useState<boolean>(false);
 	const [click, setClick] = useState<boolean>(false);
+
+	console.log("boxId: ", boxId);
+
 	return (
 		<div
 			className="flex flex-col border-2 border-gray-300 "
@@ -26,6 +29,7 @@ function CodeBox() {
 				console.log("clicked");
 				setClick(true);
 			}}>
+			<h1>{boxId}</h1>
 			<div className="flex flex-row">
 				{/* 最左边的一个侧边栏, 在hover时灰色, 在click时为蓝色 */}
 				<div
@@ -54,15 +58,22 @@ function CodeBox() {
 				{/* 代码框 */}
 			</div>
 
-      {/* 输出区 */}
+			{/* 输出区 */}
 			<div className="flex flex-col">
-        <div className="border-2 border-green-200">这里是output</div>
-        <div className="flex flex-row justify-center gap-2">
-          <AddCode />
-          <AddMarkdown />
-        </div>
-      </div>
-      {/* 输出区 */}
+				<div className="border-2 border-green-200">这里是output</div>
+				<div className="flex flex-row justify-center gap-2">
+					{/* 这个是添加code的按钮 */}
+					<div
+						onClick={() => {
+							onUpdateBox(parseInt(boxId) + 1, buttonType.addBox);
+						}}
+						className="border-2 border-gray-300 px-2">
+						+ Code
+					</div>
+					<AddMarkdown />
+				</div>
+			</div>
+			{/* 输出区 */}
 		</div>
 	);
 }
