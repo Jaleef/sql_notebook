@@ -1,4 +1,4 @@
-import CodeBox from "./components/CodeBox";
+import { CodeBox } from "./components";
 import { useState } from "react";
 import { TrashIcon } from "./assets";
 

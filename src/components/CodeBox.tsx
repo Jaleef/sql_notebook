@@ -2,7 +2,7 @@ import { useState } from "react";
 import { RunIcon } from "../assets";
 import { BoxType} from "../types";
 
-function CodeBox({ boxId, index, runBox, selected, onClick }: BoxType) {
+export const CodeBox = ({ boxId, index, runBox, selected, onClick }: BoxType) => {
 	const activeColor: string = "border-blue-500";
 	const inactiveColor: string = "border-gray-200";
 	const codeBgColor: string = "bg-gray-100";
@@ -51,7 +51,8 @@ function CodeBox({ boxId, index, runBox, selected, onClick }: BoxType) {
 				<div
 					className={`flex-grow border-2 ${
 						selected ? activeColor : codeBorderColor
-					} ${codeBgColor}`}></div>
+					} ${codeBgColor}`}>
+					</div>
 				{/* 代码框 */}
 			</div>
 
@@ -63,5 +64,3 @@ function CodeBox({ boxId, index, runBox, selected, onClick }: BoxType) {
 		</div>
 	);
 }
-
-export default CodeBox;
