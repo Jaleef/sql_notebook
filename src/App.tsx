@@ -43,7 +43,7 @@ function App() {
 			{/* 列表部分 */}
 			<div className="flex flex-col">
 				{boxList.map((box) => (
-					<div className="mb-5">
+					<div className="mb-5" key={box.boxId}>
 						<div
 							className="flex justify-end"
 							onClick={() => deleteBox(box.boxId)}
