@@ -1,9 +1,8 @@
 import { useState } from "react";
-import RunIcon from "../assets/RunIcon";
-import AddMarkdown from "../assets/AddMarkdown";
-import { BoxType, buttonType } from "../types";
+import { RunIcon } from "../assets";
+import { BoxType} from "../types";
 
-function CodeBox({ boxId, onUpdateBox }: BoxType) {
+function CodeBox({ boxId, index, runBox }: BoxType) {
 	const activeColor: string = "border-blue-500";
 	const inactiveColor: string = "border-gray-200";
 	const codeBgColor: string = "bg-gray-100";
@@ -18,15 +17,15 @@ function CodeBox({ boxId, onUpdateBox }: BoxType) {
 		<div
 			className="flex flex-col border-2 border-gray-300 "
 			onMouseEnter={() => {
-				console.log("hover");
+				// console.log("hover");
 				setHover(true);
 			}}
 			onMouseLeave={() => {
-				console.log("leave");
+				// console.log("leave");
 				setHover(false);
 			}}
 			onClick={() => {
-				console.log("clicked");
+				// console.log("clicked");
 				setClick(true);
 			}}>
 			<h1>{boxId}</h1>
@@ -44,9 +43,13 @@ function CodeBox({ boxId, onUpdateBox }: BoxType) {
 
 				{/* 运行框 */}
 				<div className="flex flex-col justify-between">
+					<div onClick={() => {
+						runBox(boxId);
+					}}>
 					<RunIcon />
+					</div>
 
-					<div>[{1}]</div>
+					<div >[{index == 0 ? ' ' : index}]</div>
 				</div>
 				{/* 运行框 */}
 
@@ -61,17 +64,6 @@ function CodeBox({ boxId, onUpdateBox }: BoxType) {
 			{/* 输出区 */}
 			<div className="flex flex-col">
 				<div className="border-2 border-green-200">这里是output</div>
-				<div className="flex flex-row justify-center gap-2">
-					{/* 这个是添加code的按钮 */}
-					<div
-						onClick={() => {
-							onUpdateBox(parseInt(boxId) + 1, buttonType.addBox);
-						}}
-						className="border-2 border-gray-300 px-2">
-						+ Code
-					</div>
-					<AddMarkdown />
-				</div>
 			</div>
 			{/* 输出区 */}
 		</div>

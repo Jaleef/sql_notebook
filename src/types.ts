@@ -5,6 +5,7 @@ export enum buttonType {
 
 
 export interface BoxType {
-  boxId: string;
-  onUpdateBox: (boxId: number, type: buttonType) => void;
+  boxId: number;
+  index: number;
+  runBox: (boxId: number) => void;
 }
