@@ -10,7 +10,7 @@ function App() {
 	const [selectedId, setSelectedId] = useState<number>(0);
 
 	useEffect(() => {
-		fetch("http://localhost:9000/testAPI")
+		fetch("http://localhost:9000/")
 			.then(res => {
 				alert(res.text());
 			})
