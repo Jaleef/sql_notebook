@@ -11,8 +11,6 @@ function CodeBox({ boxId, index, runBox }: BoxType) {
 	const [hover, setHover] = useState<boolean>(false);
 	const [click, setClick] = useState<boolean>(false);
 
-	console.log("boxId: ", boxId);
-
 	return (
 		<div
 			className="flex flex-col border-2 border-gray-300 "
