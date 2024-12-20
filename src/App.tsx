@@ -3,11 +3,10 @@ import { useState } from "react";
 import { TrashIcon } from "./assets";
 
 function App() {
-	const initialBoxList = [{ boxId: 0, index: 0}];
-
-	const [boxList, setBoxList] = useState(initialBoxList);
+	const [boxList, setBoxList] = useState([{ boxId: 0, index: 0}]);
 	const [id, setId] = useState<number>(1);
   const [index, setIndex] = useState<number>(0);
+  const [selectedId, setSelectedId] = useState<number>(0);
 
 	function addBox() {
 		setBoxList([...boxList, { boxId: id, index: 0 }]);
@@ -26,13 +25,17 @@ function App() {
     setIndex(index + 1);
     const newList = boxList.map((box) => {
       if (box.boxId === boxId) {
-        return { boxId: boxId, index: index + 1};
+        return { boxId: boxId, index: index + 1 };
       } else {
         return box;
       }
     });
     setBoxList(newList);
 
+  }
+
+  function clickBox(boxId: number) {
+    setSelectedId(boxId);
   }
 
 	return (
@@ -49,7 +52,7 @@ function App() {
 							<TrashIcon />
               </div>
 						</div>
-						<CodeBox boxId={box.boxId} index={box.index} runBox={runBox}/>
+						<CodeBox boxId={box.boxId} index={box.index} runBox={runBox} selected={box.boxId == selectedId ? true : false} onClick={clickBox}/>
 					</div>
 				))}
 			</div>
