@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { RunIcon } from "../assets";
 import { BoxType } from "../types";
-import Quill from "quill";
 
 export const CodeBox = ({
 	boxId,
