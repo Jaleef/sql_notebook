@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import { CodeBox } from "./components";
 import { useState } from "react";
 import { TrashIcon } from "./assets";
@@ -8,6 +9,12 @@ function App() {
 	const [index, setIndex] = useState<number>(0);
 	const [selectedId, setSelectedId] = useState<number>(0);
 
+	useEffect(() => {
+		fetch("http://localhost:9000/testAPI")
+			.then(res => {
+				alert(res.text());
+			})
+	})
 	function addBox() {
 		setBoxList([...boxList, { boxId: id, index: 0 }]);
 		setId(id + 1);
