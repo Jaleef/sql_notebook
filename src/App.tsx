@@ -3,10 +3,10 @@ import { useState } from "react";
 import { TrashIcon } from "./assets";
 
 function App() {
-	const [boxList, setBoxList] = useState([{ boxId: 0, index: 0}]);
+	const [boxList, setBoxList] = useState([{ boxId: 0, index: 0 }]);
 	const [id, setId] = useState<number>(1);
-  const [index, setIndex] = useState<number>(0);
-  const [selectedId, setSelectedId] = useState<number>(0);
+	const [index, setIndex] = useState<number>(0);
+	const [selectedId, setSelectedId] = useState<number>(0);
 
 	function addBox() {
 		setBoxList([...boxList, { boxId: id, index: 0 }]);
@@ -21,38 +21,47 @@ function App() {
 		);
 	}
 
-  function runBox(boxId: number) {
-    setIndex(index + 1);
-    const newList = boxList.map((box) => {
-      if (box.boxId === boxId) {
-        return { boxId: boxId, index: index + 1 };
-      } else {
-        return box;
-      }
-    });
-    setBoxList(newList);
+	function runBox(boxId: number, sqlQuery: string) {
+		setIndex(index + 1);
+		const newList = boxList.map((box) => {
+			if (box.boxId === boxId) {
+				return { boxId: boxId, index: index + 1 };
+			} else {
+				return box;
+			}
+		});
+		setBoxList(newList);
 
-  }
+    alert(sqlQuery);
+	}
 
-  function clickBox(boxId: number) {
-    setSelectedId(boxId);
-  }
+	function clickBox(boxId: number) {
+		setSelectedId(boxId);
+	}
 
 	return (
 		<div className="container mx-auto px-52 py-5 bg-white">
 			{/* 列表部分 */}
 			<div className="flex flex-col">
 				{boxList.map((box) => (
-					<div className="mb-5" key={box.boxId}>
-						<div
-							className="flex justify-end"
-							onClick={() => deleteBox(box.boxId)}
-						>
-              <div className="border-2 border-gray-300">
-							<TrashIcon />
-              </div>
+					<div
+						className="mb-5"
+						key={box.boxId}
+					>
+						<div className="flex justify-end">
+							<div className="border-2 border-gray-300">
+								<div onClick={() => deleteBox(box.boxId)}>
+									<TrashIcon />
+								</div>
+							</div>
 						</div>
-						<CodeBox boxId={box.boxId} index={box.index} runBox={runBox} selected={box.boxId == selectedId ? true : false} onClick={clickBox}/>
+						<CodeBox
+							boxId={box.boxId}
+							index={box.index}
+							runBox={runBox}
+							selected={box.boxId == selectedId ? true : false}
+							onClick={clickBox}
+						/>
 					</div>
 				))}
 			</div>

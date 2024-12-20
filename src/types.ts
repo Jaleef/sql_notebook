@@ -7,7 +7,7 @@ export enum buttonType {
 export interface BoxType {
   boxId: number;
   index: number;
-  runBox: (boxId: number) => void;
+  runBox: (boxId: number, sqlQuery: string) => void;
   selected: boolean;
   onClick: (boxId: number) => void;
 }
