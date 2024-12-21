@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { CodeBox } from "./components";
 import { useState } from "react";
 import { TrashIcon } from "./assets";
@@ -10,7 +10,7 @@ function App() {
 	const [selectedId, setSelectedId] = useState<number>(0);
 
 	useEffect(() => {
-		fetch("http://localhost:9000/")
+		fetch("http://localhost:9000/connect")
 			.then(res => {
 				alert(res.text());
 			})
