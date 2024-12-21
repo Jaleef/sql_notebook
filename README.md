@@ -54,15 +54,18 @@ export default tseslint.config({
 ## 尝试运行此项目
 
 1. 安装node
-
 2. 进入项目文件夹的express文件夹内, 运行
 
    1. npm i
    2. npm run start
 
+
+(这里最好使用pnpm)
+
 3. 切换一个终端, 进入sql_notebook内, 运行
 
-   1. npm i
-   2. npm run dev
+   - npm i
+   - npm run dev
+
 
 4. 打开浏览器, 就看到了
