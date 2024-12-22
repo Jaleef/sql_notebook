@@ -15,6 +15,7 @@ function App() {
 		setId(id + 1);
 	}
 
+
 	function deleteBox(boxId: number) {
 		setBoxList(
 			boxList.filter((box) => {
@@ -101,7 +102,7 @@ function App() {
 
 						{/* 输出区 */}
 						<div className="flex flex-col">
-							<div className="border-2 border-green-200">{box.output}</div>
+							<div className="border-2">{box.output}</div>
 						</div>
 						{/* 输出区 */}
 					</div>
@@ -116,7 +117,7 @@ function App() {
 				>
 					+ Code
 				</div>
-				<div className="border-2 border-gray-300 px-2">+ Markdown</div>
+				{/* <div className="border-2 border-gray-300 px-2">+ Markdown</div> */}
 			</div>
 		</div>
 	);
