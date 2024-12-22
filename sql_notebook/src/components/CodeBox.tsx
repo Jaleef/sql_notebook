@@ -95,11 +95,6 @@ export const CodeBox = ({
 				{/* 代码框 */}
 			</div>
 
-			{/* 输出区 */}
-			<div className="flex flex-col">
-				<div className="border-2 border-green-200">这里是output</div>
-			</div>
-			{/* 输出区 */}
 		</div>
 	);
 };

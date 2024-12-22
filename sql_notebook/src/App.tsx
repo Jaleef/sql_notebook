@@ -1,22 +1,17 @@
-import { useEffect } from "react";
 import { CodeBox } from "./components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TrashIcon } from "./assets";
+import axios from "axios";
 
 function App() {
-	const [boxList, setBoxList] = useState([{ boxId: 0, index: 0 }]);
+	const [boxList, setBoxList] = useState([{ boxId: 0, index: 0, output: "" }]);
 	const [id, setId] = useState<number>(1);
 	const [index, setIndex] = useState<number>(0);
 	const [selectedId, setSelectedId] = useState<number>(0);
+	const [connect, setConnect] = useState<boolean>(false);
 
-	useEffect(() => {
-		fetch("http://localhost:9000/connect")
-			.then(res => {
-				alert(res.text());
-			})
-	})
 	function addBox() {
-		setBoxList([...boxList, { boxId: id, index: 0 }]);
+		setBoxList([...boxList, { boxId: id, index: 0, output: "" }]);
 		setId(id + 1);
 	}
 
@@ -28,23 +23,57 @@ function App() {
 		);
 	}
 
-	function runBox(boxId: number, sqlQuery: string) {
-		setIndex(index + 1);
-		const newList = boxList.map((box) => {
-			if (box.boxId === boxId) {
-				return { boxId: boxId, index: index + 1 };
-			} else {
-				return box;
-			}
+	const fetchData = async (sqlQuery: string) => {
+		const response = await axios.post("http://localhost:9000/query", {
+			query: sqlQuery,
 		});
-		setBoxList(newList);
+		return response;
+	};
 
-    alert(sqlQuery);
+	async function runBox(boxId: number, sqlQuery: string) {
+		setIndex(index + 1);
+
+		const newList = await Promise.all(
+			boxList.map(async (box) => {
+				if (box.boxId === boxId) {
+					let data: string = "";
+					alert(sqlQuery);
+					if (sqlQuery) {
+						await fetchData(sqlQuery)
+							.then((response) => response.data)
+							.then((result: { output: string }) => {
+								data = result.output;
+							});
+					}
+					return { ...box, index: index, output: data };
+				} else {
+					return box;
+				}
+			}),
+		);
+
+		setBoxList(newList);
 	}
 
 	function clickBox(boxId: number) {
 		setSelectedId(boxId);
 	}
+
+	useEffect(() => {
+		if (!connect) {
+			axios
+				.get("http://localhost:9000/connect")
+				.then((response) => response.data)
+				.then((data) => {
+					if (data.error) {
+						alert(data.message);
+					} else {
+						alert(data.message);
+						setConnect(true);
+					}
+				});
+		}
+	});
 
 	return (
 		<div className="container mx-auto px-52 py-5 bg-white">
@@ -69,6 +98,12 @@ function App() {
 							selected={box.boxId == selectedId ? true : false}
 							onClick={clickBox}
 						/>
+
+						{/* 输出区 */}
+						<div className="flex flex-col">
+							<div className="border-2 border-green-200">{box.output}</div>
+						</div>
+						{/* 输出区 */}
 					</div>
 				))}
 			</div>
